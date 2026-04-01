@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,17 @@ public class UsuarioService {
 	}
 	
 	//eliminar usuario
-	public void deleteUsuario(Long id) {
-		repo.deleteById(id);
+	public boolean deleteUsuario(Long id) {
+		if(repo.existsById(id)) {
+			repo.deleteById(id);
+			return true;
+		}
+			
+		return false;
 	}
-	
 	//buscar por id 
-	public Usuario getUsuario(Long id) {
-		return repo.findById(id).orElse(null);
+	public Optional<Usuario> getUsuario(Long id) {
+		return repo.findById(id);
 	}
 	
 	//listar todos los usuarios
@@ -36,7 +41,7 @@ public class UsuarioService {
 	}
 	
 	//actualizar usuario
-	public Usuario updateUsuario(Long id, Usuario usuario) {
+	public Optional<Usuario> updateUsuario(Long id, Usuario usuario) {
 
 	    return repo.findById(id).map(u -> {
 	        u.setApellido(usuario.getApellido());
@@ -47,11 +52,11 @@ public class UsuarioService {
 	        u.setRol(usuario.getRol());
 
 	        return repo.save(u);
-	    }).orElse(null);
+	    });
 	}
 	
 	//buscar por email
-	public Usuario getUsuarioByEmail(String email) {
+	public Optional<Usuario> getUsuarioByEmail(String email) {
 		return repo.findByEmail(email);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.EstadoReserva;
 import com.example.demo.model.Reserva;
@@ -12,14 +13,40 @@ import com.example.demo.repository.ReservaRepository;
 
 @Service
 public class ReservaService {
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Autowired
 	private ReservaRepository repo;
 	
 	//crear reserva (pendiente)
 	public Reserva postReserva(Reserva reserva) {
-		reserva.setEstado(EstadoReserva.Pendiente);
-		return repo.save(reserva);	
+
+	    // 🔥 VALIDAR USUARIO
+	    try {
+	        restTemplate.getForObject(
+	            "http://localhost:8081/usuarios/" + reserva.getUsuarioId(),
+	            Object.class
+	        );
+	    } catch (Exception e) {
+	        return null;
+	    }
+
+	    // 🔥 VALIDAR DEPARTAMENTO
+	    try {
+	        restTemplate.getForObject(
+	            "http://localhost:8080/departamentos/" + reserva.getDepartamentoId(),
+	            Object.class
+	        );
+	    } catch (Exception e) {
+	        return null;
+	    }
+
+	    // estado inicial
+	    reserva.setEstado(EstadoReserva.Pendiente);
+
+	    return repo.save(reserva);
 	}
 	
 	//obtener reserva por id

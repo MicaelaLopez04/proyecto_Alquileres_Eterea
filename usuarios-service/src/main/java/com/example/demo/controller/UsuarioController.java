@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,37 +29,92 @@ public class UsuarioController {
 	
 	//crear usuario
 	@PostMapping
-	public Usuario postUsuario(@RequestBody Usuario usuario) {
-		return service.postUsuario(usuario);	
+	public ResponseEntity<Usuario> postUsuario(@RequestBody Usuario usuario) {
+		Usuario nuevo= service.postUsuario(usuario);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
 	}
 	
 	//eliminar usuario
 	@DeleteMapping("/{id}")
-	public void deleteUsuario(@PathVariable Long id) {
-		service.deleteUsuario(id);
+	public ResponseEntity<?> deleteUsuario(@PathVariable Long id) {
+		boolean eliminado= service.deleteUsuario(id);
+		
+		if(eliminado) {
+			return ResponseEntity.noContent().build();
+		}else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
-	//buscar por id
+	//buscar por id	
 	@GetMapping("/{id}")
-	public Usuario getUsuario(@PathVariable Long id) {
-		return service.getUsuario(id);
+	public ResponseEntity<Usuario> getUsuario(@PathVariable Long id) {
+		Optional<Usuario> encontrado = service.getUsuario(id);
+		return encontrado.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 	
 	//buscar todos lo usuarios
 	@GetMapping
-	public List<Usuario> getUsuarios(){
-		return service.getUsuarios();
+	public ResponseEntity<List<Usuario>> getUsuarios(){
+		List<Usuario> usuarios= service.getUsuarios();
+		return ResponseEntity.ok(usuarios);
 	}
+	
 	
 	//actualizo usuario
 	@PutMapping("/{id}")
-	public Usuario updateUsuario(@PathVariable Long id,  @RequestBody Usuario usuario){
-		return service.updateUsuario(id, usuario);
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id,  @RequestBody Usuario usuario){
+		return service.updateUsuario(id, usuario).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 	
 	//buscar por email
 	@GetMapping("/email")
-	public Usuario getUusuarioByEmail(@RequestParam String email) {
-		return service.getUsuarioByEmail(email);
+	public ResponseEntity<Usuario> getUusuarioByEmail(@RequestParam String email) {
+		Optional<Usuario> encontrado= service.getUsuarioByEmail(email);
+		return encontrado.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+
+	
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

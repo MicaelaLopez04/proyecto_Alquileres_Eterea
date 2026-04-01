@@ -30,7 +30,12 @@ public class ReservaController {
 	@PostMapping
 	public ResponseEntity<Reserva> postReserva(@RequestBody Reserva reserva) {
 		Reserva nueva= service.postReserva(reserva);
-		return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+		if(nueva !=null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 	
 	//buscar reserva por id
