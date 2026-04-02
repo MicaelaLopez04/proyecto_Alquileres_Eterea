@@ -2,24 +2,25 @@
    return fetch("http://localhost:8080/departamentos").then(response=>response.json())
   }
 
-  function renderDepartamentos(lista){
-    const contenedor= document.getElementById("lista");
+function renderDepartamentos(lista){
+  const contenedor = document.getElementById("lista");
 
-    lista.forEach(depto => {
-      contenedor.innerHTML += `
-        <div>
-          <h3>${depto.nombre}</h3>
-          <p>${depto.descripcion}</p>
-          <p>$${depto.precio}</p>
+  contenedor.innerHTML = ""; // limpia antes
 
-          <a href="detalle.html?id=${depto.id}">
-           Ver detalle
-          </a>
-          <a href="reserva.html?id=${depto.id}">Reservar</a>
+  lista.forEach(depto => {
+    contenedor.innerHTML += `
+      <div class="card">
+        <h3>${depto.nombre}</h3>
+        <p class="desc">${depto.descripcion}</p>
+        <p class="precio">$${depto.precio}</p>
+
+        <div class="acciones">
+          <a href="detalle.html?id=${depto.id}" class="btn">Ver detalle</a>
+          <a href="reserva.html?id=${depto.id}" class="btn secundario">Reservar</a>
         </div>
-        <hr>
-      `;
-    });
+      </div>
+    `;
+  });
 }
  
 getDepartamentos().then(renderDepartamentos).catch(error => {

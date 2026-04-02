@@ -1,0 +1,71 @@
+h1{
+    text-align: center;
+}
+/* Contenedor general */
+#lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Título */
+.card h3 {
+  margin: 0 0 10px;
+}
+
+/* Descripción */
+.desc {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Precio */
+.precio {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* Botones */
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 8px 12px;
+  background: #00c3ff;
+  color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #009ac7;
+}
+
+/* Botón secundario */
+.secundario {
+  background: #333;
+}
+
+.secundario:hover {
+  background: #111;
+}

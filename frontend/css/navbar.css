@@ -1,0 +1,58 @@
+/* Reset básico */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #111;
+    color: white;
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilo de los links */
+.nav-links a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+/* Hover moderno */
+.nav-links a:hover {
+    color: white;
+}
+
+/* Línea animada abajo */
+.nav-links a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #00c3ff;
+    transition: width 0.3s;
+    margin-top: 5px;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}

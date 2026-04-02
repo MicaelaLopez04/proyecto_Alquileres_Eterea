@@ -1,5 +1,8 @@
 const reserva= document.getElementById("btnReserva").addEventListener("click",crearReserva());
 
+
+
+
 function crearReserva(event){
 
 event.preventDefault();

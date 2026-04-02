@@ -11,13 +11,15 @@ function renderDepartamento(depto) {
   const contenedor = document.getElementById("detalle");
 
   contenedor.innerHTML = `
-    <div>
-      <h3>${depto.nombre}</h3>
-      <p>${depto.descripcion}</p>
-      <p>$${depto.precio}</p>
+    <div class="card">
+        <h3>${depto.nombre}</h3>
+        <p class="desc">${depto.descripcion}</p>
+        <p class="precio">$${depto.precio}</p>
 
-      <a href="reserva.html?id=${depto.id}">Reservar</a>
-    </div>
+        <div class="acciones">
+          <a href="reserva.html?id=${depto.id}" class="btn secundario">Reservar</a>
+        </div>
+      </div>
   `;
 }
 
